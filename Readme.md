@@ -15,7 +15,7 @@ La aplicación utiliza **Docker Compose** para orquestar los microservicios, gar
 ### Instrucciones de Despliegue
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/tu-usuario/cafe-sv-analitica.git](https://github.com/tu-usuario/cafe-sv-analitica.git)
+   git clone [https://github.com/eechegoyen17/CafeSV.git](https://github.com/eechegoyen17/CafeSV.git)
    cd cafe-sv-analitica
 
 2. **Configuración de Variables de Entorno:**
