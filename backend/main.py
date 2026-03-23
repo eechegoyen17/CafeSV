@@ -25,7 +25,7 @@ app.add_middleware(
 )
 
 # Conexión DB
-MONGO_URI = os.getenv("MONGO_URI")
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongodb:27017/cafe_db")
 db_client = AsyncIOMotorClient(MONGO_URI)
 db = db_client.cafe_db
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
