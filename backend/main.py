@@ -13,12 +13,22 @@ from dotenv import load_dotenv
 import time
 from schemas import MensajeValidado, MetadataAuditoria, HallazgoSchema # Importamos los nuevos esquemas
 
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
+
 load_dotenv()
 app = FastAPI(title="CafeSV Multi-Sentiment API")
 
+origins = [
+    "https://eechegoyen17.github.io",  # Tu frontend en GitHub
+    "http://localhost:3000",           # Para que sigas probando localmente
+    "http://localhost:5173",           # Si usas Vite localmente
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
