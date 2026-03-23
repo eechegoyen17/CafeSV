@@ -5,6 +5,7 @@ import TopicsBar from './components/TopicsBar';
 import MessageFeed from './components/MessageFeed';
 
 const App = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [mensajes, setMensajes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filtroSentimiento, setFiltroSentimiento] = useState('todos');
@@ -12,6 +13,12 @@ const App = () => {
   const [limite, setLimite] = useState(3);
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -185,18 +192,55 @@ const App = () => {
 };
 
 // Estilos
-const containerStyle = { backgroundColor: '#0b1120', minHeight: '100vh', color: 'white', fontFamily: 'sans-serif' };
-const headerStyle = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 40px', borderBottom: '1px solid #1e293b' };
+const containerStyle = { 
+  backgroundColor: '#0b1120', 
+  minHeight: '100vh', 
+  color: 'white', 
+  fontFamily: 'sans-serif',
+  overflowX: 'hidden' // Evita el scroll horizontal
+};
+
+const headerStyle = { 
+  display: 'flex', 
+  flexDirection: isMobile ? 'column' : 'row', // Se apila en móvil
+  justifyContent: 'space-between', 
+  alignItems: 'center', 
+  padding: isMobile ? '15px' : '15px 40px', 
+  borderBottom: '1px solid #1e293b',
+  gap: '15px'
+};
+
 const logoStyle = { fontSize: '20px', fontWeight: '900' };
 const pillStyle = { display: 'flex', alignItems: 'center', gap: '10px', background: '#161e2e', padding: '6px 15px', borderRadius: '12px', border: '1px solid #1e293b' };
 const badgeLabel = { fontSize: '8px', fontWeight: 'bold', opacity: 0.5 };
 const badgeValue = { fontSize: '14px', fontWeight: '800' };
 const btnAction = { background: '#1e293b', border: '1px solid #334155', borderRadius: '10px', color: '#3b82f6', padding: '10px', cursor: 'pointer' };
-const mainLayout = { display: 'flex', padding: '25px', gap: '25px' };
-const sidebarStyle = { width: '380px', display: 'flex', flexDirection: 'column', gap: '25px' };
+
+const mainLayout = { 
+  display: 'flex', 
+  flexDirection: isMobile ? 'column' : 'row', // ¡ESTA ES LA CLAVE!
+  padding: isMobile ? '15px' : '25px', 
+  gap: '25px' 
+};
+
+const sidebarStyle = { 
+  width: isMobile ? '100%' : '380px', // Ocupa todo el ancho en móvil
+  display: 'flex', 
+  flexDirection: 'column', 
+  gap: '25px' 
+};
+
 const glassCard = { background: 'rgba(30, 41, 59, 0.3)', borderRadius: '24px', padding: '24px', border: '1px solid #1e293b', height: '340px', display: 'flex', flexDirection: 'column' };
 const cardHeader = { color: '#475569', fontSize: '10px', letterSpacing: '2px', textAlign: 'center', marginBottom: '15px', fontWeight: '800' };
-const filterBar = { display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'nowrap', overflowX: 'auto', paddingBottom: '5px' };
+
+const filterBar = { 
+  display: 'flex', 
+  gap: '8px', 
+  alignItems: 'center', 
+  flexWrap: 'wrap', // Permite que los filtros bajen si no caben
+  paddingBottom: '15px' 
+};
+
 const selectStyle = { background: '#1e293b', color: '#94a3b8', border: '1px solid #334155', padding: '8px 12px', borderRadius: '10px', fontSize: '11px', outline: 'none' };
 const dateGroup = { display: 'flex', gap: '5px', background: '#1e293b', padding: '4px', borderRadius: '10px', border: '1px solid #334155' };
 const dateInput = { background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '11px', padding: '2px', outline: 'none', width: '95px' };
