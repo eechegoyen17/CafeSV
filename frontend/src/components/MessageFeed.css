@@ -1,0 +1,98 @@
+/* VARIABLES Y GRADIENTES */
+.card-positivo, .tag-positivo { 
+  --accent: #22c55e; 
+  --bg-alpha: rgba(34, 197, 94, 0.1);
+  --bg-glow: rgba(34, 197, 94, 0.7);
+  --grad: linear-gradient(90deg, rgba(34, 197, 94, 0.15) 0%, transparent 95%);
+}
+.card-negativo, .tag-negativo { 
+  --accent: #ef4444; 
+  --bg-alpha: rgba(239, 68, 68, 0.1);
+  --bg-glow: rgba(239, 68, 68, 0.7);
+  --grad: linear-gradient(90deg, rgba(239, 68, 68, 0.15) 0%, transparent 95%);
+}
+.card-neutro, .tag-neutro { 
+  --accent: #94a3b8; 
+  --bg-alpha: rgba(148, 163, 184, 0.1);
+  --bg-glow: rgba(148, 163, 184, 0.7);
+  --grad: linear-gradient(90deg, rgba(148, 163, 184, 0.1) 0%, transparent 95%);
+}
+
+.message-card {
+  background: var(--grad), #111827; /* GRADIENTE + FONDO */
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-left: 5px solid var(--accent);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 5px 10px -5px var(--bg-glow);
+}
+
+/* ALINEACIÓN HEADER */
+.card-header { display: flex; justify-content: space-between; align-items: center; }
+.sender-info { display: flex; align-items: center; gap: 10px; color: #94a3b8; font-weight: 700; font-size: 13px; }
+.timestamp { color: #4b5563; font-size: 11px; }
+
+/* MENSAJE CENTRADO */
+.message-content { text-align: center; padding: 15px 0; }
+.message-text { color: #f1f5f9; font-size: 14px; }
+
+/* TAGS CON HOVER Y COLOR DINÁMICO */
+.tags-row { display: flex; gap: 10px; justify-content: flex-start; }
+
+.sentiment-tag {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: #111827;
+  border: 1px solid var(--accent);
+  color: var(--accent); /* TEXTO Y ICONO DEL MISMO COLOR */
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tag-icon { font-size: 9px; color: inherit; } /* HEREDA EL COLOR DEL TEXTO */
+
+.whatsapp-icon { color: var(--accent) }
+
+/* LÓGICA DEL HOVER */
+.tag-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 140%;
+  left: 0;
+  width: 220px;
+  background: #1f2937;
+  border: 1px solid var(--accent);
+  padding: 12px;
+  border-radius: 8px;
+  z-index: 100;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.sentiment-tag:hover .tag-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-resumen { color: #f1f5f9; text-transform: none; font-weight: 400; margin-bottom: 8px; }
+.tooltip-footer { font-size: 9px; color: #64748b; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 6px; }
+.footer-sent { color: var(--accent); font-weight: 900; }
+
+/* src/components/MessageFeed.css */
+
+.tag-icon {
+  font-family: "Font Awesome 6 Free" !important; /* Asegurar que use la fuente correcta */
+  font-weight: 900 !important; /* Forzar el peso para el estilo sólido 'fas' */
+  visibility: visible !important; /* Asegurar que no esté oculto */
+  opacity: 1 !important; /* Asegurar opacidad total */
+  display: inline-block !important; /* FontAwesome lo necesita */
+  content: "" !important; /* Asegurar que no se sobreescriba el contenido */
+}

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # Base de Datos (Punto 7: MongoDB Contenerizado)
+  mongodb:
+    image: mongo:latest
+    container_name: cafesv_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  # Backend (FastAPI + Pydantic para Gobernanza)
+  backend:
+    build: ./backend
+    container_name: cafesv_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mongodb
+
+  # Frontend (React Dashboard)
+  frontend:
+    build: ./frontend
+    container_name: cafesv_frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true # Para que React no se cierre en Docker
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
